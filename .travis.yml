@@ -1,0 +1,47 @@
+language: node_js
+
+node_js:
+  - node
+
+dist: trusty
+
+cache:
+  npm: true
+  directories:
+    - '$HOME/.sonar/cache'
+    - '~/.cache'
+
+# Build only commits on master and release tags preventing double builds for PRs
+# See https://docs.travis-ci.com/user/pull-requests/#double-builds-on-pull-requests
+branches:
+  only:
+    - master
+    - /v[0-9]+\.[0-9]+\.[0-9]+(-.*)?$/
+
+addons:
+  apt:
+    packages:
+      - libgconf-2-4
+
+script:
+  - echo "Script !"
+
+after_script:
+  - echo "After Script !"
+
+deploy:
+  - provider: script
+    script: echo "Deploy 1 !"
+    skip_cleanup: true
+
+jobs:
+  include:
+    - stage: Tests deploy
+      install: true
+      script: true
+      before_deploy:
+        - cd ree/
+      deploy:
+        - provider: script
+          script: cat bla.json
+          skip_cleanup: true
