@@ -42,3 +42,6 @@ jobs:
         - provider: script
           script: cat bla.json
           skip_cleanup: true
+          on:
+            tags: true
+
