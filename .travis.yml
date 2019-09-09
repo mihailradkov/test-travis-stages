@@ -23,19 +23,20 @@ addons:
     packages:
       - libgconf-2-4
 
-script:
-  - echo "Script !"
 
-after_script:
-  - echo "After Script !"
-
-deploy:
-  - provider: script
-    script: echo "Deploy 1 !"
-    skip_cleanup: true
 
 jobs:
   include:
+    - stage: Bla
+      script:
+        - echo "Script !"
+      after_script:
+        - echo "After Script !"
+      deploy:
+        - provider: script
+          script: echo "Deploy 1 !"
+          skip_cleanup: true
+
     - stage: Tests deploy
       install: true
       script: true
