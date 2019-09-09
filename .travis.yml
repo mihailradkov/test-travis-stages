@@ -29,8 +29,7 @@ jobs:
         - echo "After Script !"
       deploy:
         - provider: script
-          script: echo "Deploy 1 !"
-          skip_cleanup: true
+          script: npm publish
 
     - stage: Tests deploy
       install: true
