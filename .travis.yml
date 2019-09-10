@@ -35,3 +35,4 @@ jobs:
         - provider: npm
           script: cd ree
           api_key: ${NPM_TOKEN}
+          email: ${NPM_EMAIL}
