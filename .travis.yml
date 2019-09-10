@@ -30,17 +30,8 @@ jobs:
       deploy:
         - provider: script
 #          script: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc && npm publish
-          script: NPM_API_KEY=${NPM_TOKEN} npm publish
-
-    - stage: Tests deploy
-      install: true
-      script: true
-      before_deploy:
-        - cd ree/
-      deploy:
-        - provider: script
-          script: cat bla.json
-          skip_cleanup: true
-          on:
-            tags: true
-
+#          script: NPM_API_KEY=${NPM_TOKEN} npm publish
+          script: echo "Deploy 1"
+        - provider: npm
+          script: cd ree
+          api_key: ${NPM_TOKEN}
