@@ -29,7 +29,8 @@ jobs:
         - echo "After Script !"
       deploy:
         - provider: script
-          script: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc && npm publish
+#          script: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc && npm publish
+          script: NPM_API_KEY=${NPM_TOKEN} npm publish
 
     - stage: Tests deploy
       install: true
