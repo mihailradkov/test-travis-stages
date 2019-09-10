@@ -3,48 +3,32 @@ language: node_js
 node_js:
   - node
 
-# Build only commits on master and release tags preventing double builds for PRs
-# See https://docs.travis-ci.com/user/pull-requests/#double-builds-on-pull-requests
-branches:
-  only:
-    - master
-    - /v[0-9]+\.[0-9]+\.[0-9]+(-.*)?$/
+jobs:
+  include:
+    - stage: Bla 1
+      if: branch = master OR (tag IS present AND tag =~ ^v)
+      dist: trusty
+      addons:
+        apt:
+          packages:
+            - libgconf-2-4
+      cache:
+        npm: true
+        directories:
+          - '$HOME/.sonar/cache'
+          - '~/.cache'
+      script:
+        - echo "Script !"
+      deploy:
+        - provider: script
+          script: echo 'Deploy 1'
 
-dist: trusty
-
-addons:
-  apt:
-    packages:
-      - libgconf-2-4
-
-cache:
-  npm: true
-  directories:
-    - '$HOME/.sonar/cache'
-    - '~/.cache'
-
-script:
-  - echo "Script !"
-
-after_script:
-  - echo "After Script !"
-
-before_deploy:
-  - echo 'BEFORE BEFORE'
-
-deploy:
-  - provider: script
-#          script: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc && npm publish
-#          script: NPM_API_KEY=${NPM_TOKEN} npm publish
-    script: echo "Deploy 1"
-
-  - provider: script
-#          script: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc && npm publish
-#          script: NPM_API_KEY=${NPM_TOKEN} npm publish
-    script: echo "Deploy 2"
-
-
-#  - provider: npm
-#    script: cd ree
-#    api_key: ${NPM_TOKEN}
-#    email: ${NPM_EMAIL}
+    - stage: Tests deploy 2
+      if: tag IS present
+      install: true
+      script: true
+      before_deploy:
+        - cd ree/
+      deploy:
+        - provider: script
+          script: cat bla.json
