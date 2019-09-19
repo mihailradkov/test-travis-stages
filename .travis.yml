@@ -5,10 +5,7 @@ node_js:
 
 dist: trusty
 
-if:
-  - type = pull_request
-  - branch = master
-  - tag IS present
+if: type = pull_request OR branch = master OR tag IS present
 
 cache:
   npm: true
