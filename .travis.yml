@@ -3,32 +3,21 @@ language: node_js
 node_js:
   - node
 
-jobs:
-  include:
-    - stage: Bla 1
-      if: branch = master OR (tag IS present AND tag =~ ^v)
-      dist: trusty
-      addons:
-        apt:
-          packages:
-            - libgconf-2-4
-      cache:
-        npm: true
-        directories:
-          - '$HOME/.sonar/cache'
-          - '~/.cache'
-      script:
-        - echo "Script !"
-      deploy:
-        - provider: script
-          script: echo 'Deploy 1'
+dist: trusty
 
-    - stage: Tests deploy 2
-      if: tag IS present
-      install: true
-      script: true
-      before_deploy:
-        - cd ree/
-      deploy:
-        - provider: script
-          script: cat bla.json
+if:
+  - type = pull_request
+  - branch = master
+  - tag IS present
+
+cache:
+  npm: true
+
+script:
+  - echo "Script !"
+
+deploy:
+  - provider: script
+    script: echo 'Deploy 1'
+    on:
+      tags: true
