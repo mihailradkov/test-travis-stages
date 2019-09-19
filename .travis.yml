@@ -6,6 +6,7 @@ node_js:
 dist: trusty
 
 # Push in master is working
+# lets see featuyre to feature
 if: type = pull_request OR branch = master OR tag IS present
 
 
