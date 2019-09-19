@@ -5,7 +5,9 @@ node_js:
 
 dist: trusty
 
+# Push in master is working
 if: type = pull_request OR branch = master OR tag IS present
+
 
 cache:
   npm: true
